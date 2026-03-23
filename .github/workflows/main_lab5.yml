@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'backend/**'
+      - '.github/workflows/main_lab5.yml'
   workflow_dispatch:
 
 jobs:
@@ -25,9 +28,11 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
+        working-directory: ./backend
 
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        working-directory: ./backend
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
